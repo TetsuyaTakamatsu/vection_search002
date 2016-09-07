@@ -1,8 +1,11 @@
 ﻿  main.cpp
-c:\users\administrator\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(146): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
-c:\users\administrator\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(147): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
-c:\users\administrator\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(148): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
-c:\users\administrator\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(160): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-c:\users\administrator\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(200): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
-  sample_modified01.vcxproj -> C:\Users\Administrator\Dropbox\OpenGL\Visual Studio 2015\Projects\sample_modified01\Debug\sample_modified01.exe
-  sample_modified01.vcxproj -> C:\Users\Administrator\Dropbox\OpenGL\Visual Studio 2015\Projects\sample_modified01\Debug\sample_modified01.pdb (Partial PDB)
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(153): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(154): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(155): warning C4244: '=': 'double' から 'GLubyte' への変換です。データが失われる可能性があります。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(172): warning C4244: '*=': 'const double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(173): warning C4244: '*=': 'const double' から 'int' への変換です。データが失われる可能性があります。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(218): warning C4305: '引数': 'double' から 'float' へ切り詰めます。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(170): warning C4101: 'widthMM': ローカル変数は 1 度も使われていません。
+c:\users\ec24098s\dropbox\opengl\visual studio 2015\projects\sample_modified01\main.cpp(170): warning C4101: 'heightMM': ローカル変数は 1 度も使われていません。
+  sample_modified01.vcxproj -> C:\Users\ec24098s\Dropbox\OpenGL\Visual Studio 2015\Projects\sample_modified01\Debug\sample_modified01.exe
+  sample_modified01.vcxproj -> C:\Users\ec24098s\Dropbox\OpenGL\Visual Studio 2015\Projects\sample_modified01\Debug\sample_modified01.pdb (Partial PDB)

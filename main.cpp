@@ -128,6 +128,13 @@ void keyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods
 }
 
 int main(int argc, const char * argv[]) {
+
+	// タイマーのセッティング
+	double FPS = 60.0; // <--- 一秒間に更新する回数(30 か 60) 
+	double currentTime, lastTime, elapsedTime;  // <---
+	currentTime = lastTime = elapsedTime = 0.0; // <---
+	glfwSetTime(0.0); // <--- タイマーを初期化する
+
 	// initialize GLFW
 	if (glfwInit() == GL_FALSE)
 	{
@@ -147,6 +154,7 @@ int main(int argc, const char * argv[]) {
 		sinwave[indx][1] = ((sin((double)indx / PERIODLEN * 2 * M_PI) + 1) / 2) * 255;
 		sinwave[indx][2] = ((sin((double)indx / PERIODLEN * 2 * M_PI) + 1) / 2) * 255;
 	}
+	
 
 	// obtaine monitors for later use.
 	int m_count;
@@ -156,8 +164,18 @@ int main(int argc, const char * argv[]) {
 	int monHeight, monWidth;
 	glfwGetMonitorPhysicalSize(monitors[0], &monWidth, &monHeight);
 
+	//モニターのdpiの取得
+	const double corr = 0.7144104426002766251728907330567;
+	const GLFWvidmode* mode = glfwGetVideoMode(monitors[0]);
+	int widthMM, heightMM;
+	//glfwGetMonitorPhysicalSize(monitor, &widthMM, &heightMM);
+	monWidth *= corr;
+	monHeight *= corr;
+	const double dpi = mode->width / (monWidth / 25.4);
+	fprintf(stderr, "monWidth=%d[mm]\nmonHeight=%d[mm]\ndpi=%f[d/i]\n", monWidth,  monHeight , dpi);
+
 	// create window
-	window = glfwCreateWindow(640*1.5, 480*1.5, "GL Vection", NULL, NULL);
+	window = glfwCreateWindow(/*640*/480, 480, "GL Vection", NULL, NULL);
 	windowed = GL_TRUE;
 
 	if (window == NULL)
@@ -235,6 +253,50 @@ int main(int argc, const char * argv[]) {
 	// rendering loop
 	while (glfwWindowShouldClose(window) == GL_FALSE && glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS)
 	{
+		currentTime = glfwGetTime();  // <---
+		elapsedTime = currentTime - lastTime; // <---
+
+											  // [if 節]
+		if (elapsedTime >= 1.0 / FPS) {
+
+			// 通常の描画
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glMatrixMode(GL_MODELVIEW);
+			glLoadIdentity();
+			// calc texture pos
+			if (stop<0) texpos += velocity;
+			// 1枚分以上ずれた時は元の位置に戻す(なくても動くが気持ちの問題)
+			if (texpos >= 1.0) texpos -= 1.0;
+			if (texpos <= -1.0) texpos += 1.0;
+			// テクスチャマッピングはデフォルトでRepeatモード
+
+			glRotated(rotAngle, 0, 0, 1.0);
+			glEnable(GL_TEXTURE_1D);
+			//glNormal3d(0, 0, 1);
+			glBegin(GL_QUADS);
+			glTexCoord2d(texpos*hArea, 0); glVertex3d(-hArea, -vArea, -1);
+			glTexCoord2d(texpos*hArea, 1); glVertex3d(-hArea, vArea, -1);
+			glTexCoord2d((texpos + cycles)*hArea, 1); glVertex3d(hArea, vArea, -1);
+			glTexCoord2d((texpos + cycles)*hArea, 0); glVertex3d(hArea, -vArea, -1);
+			glEnd();
+			glDisable(GL_TEXTURE_1D);
+
+			// mask example
+			//glColor3d(0, 0, 0);
+			//glBegin(GL_QUADS);
+			//glVertex3d(-1, -1, -0.5);
+			//glVertex3d(-1, 1, -0.5);
+			//glVertex3d(-0.3, 1, -0.5);
+			//glVertex3d(-0.3, -1, -0.5);
+			//glEnd();
+			//glColor3d(1, 1, 1);
+
+			glfwSwapBuffers(window);
+			glfwPollEvents();
+
+			lastTime = glfwGetTime(); // <---
+		}
+		/*
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -268,6 +330,7 @@ int main(int argc, const char * argv[]) {
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		*/
 
 		// toggle Fullscreen
 		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
